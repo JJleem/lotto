@@ -1,0 +1,158 @@
+@import url("./reset.css");
+
+@media (max-width: 1100px) {
+  body {
+    height: 100vh;
+  }
+  #container {
+    height: 60vh !important;
+    width: 60%;
+    margin: 0 auto;
+    gap: 20px;
+  }
+  h1 {
+    font-size: 2rem !important;
+  }
+  #result {
+    font-size: 1.3rem !important;
+    padding: 0 15px !important;
+  }
+
+  #result span {
+    width: 35px !important;
+    height: 35px !important;
+    line-height: 35px !important;
+  }
+
+  #textresult {
+    width: 100vw !important;
+    font-size: 1.3rem !important;
+    padding: 0 10px !important;
+    letter-spacing: 0px !important;
+  }
+}
+
+body {
+  overflow: hidden;
+  background: #f0ced4;
+  z-index: -2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#container {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 60vw;
+  margin: 0 auto;
+  gap: 20px;
+}
+h1 {
+  width: 100vw;
+  text-align: center;
+  color: aliceblue;
+  text-shadow: 0 0 8px #000;
+  font-size: 3rem;
+}
+.img-wrap {
+  background: url("./lotto.svg") center/cover no-repeat;
+  width: 80%;
+  height: 80%;
+  position: absolute;
+  z-index: -1;
+  opacity: 0.1;
+}
+#generate {
+  width: 200px;
+  padding: 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 2rem;
+  cursor: pointer;
+  background: aliceblue;
+  box-shadow: 0px 0px 8px 1px #ccc;
+}
+#result {
+  font-size: 2rem;
+  width: 100vw;
+  padding: 10px;
+  height: 300px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+#result span {
+  border-radius: 100%;
+  color: white;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  box-shadow: 0px 0px 10px 1px aliceblue;
+  display: block;
+  animation: falling 3s ease-out forwards;
+  opacity: 0;
+}
+#result span:nth-child(1) {
+  animation-delay: 0.2s;
+}
+#result span:nth-child(2) {
+  animation-delay: 0.4s;
+}
+#result span:nth-child(3) {
+  animation-delay: 0.6s;
+}
+#result span:nth-child(4) {
+  animation-delay: 0.8s;
+}
+#result span:nth-child(5) {
+  animation-delay: 1s;
+}
+#result span:nth-child(6) {
+  animation-delay: 1.2s;
+}
+#result span:nth-child(7) {
+  animation-delay: 1.4s;
+  box-shadow: none;
+}
+#result span:nth-child(8) {
+  animation-delay: 1.4s;
+}
+
+#textresult {
+  opacity: 0;
+  width: 100vw;
+  color: aliceblue;
+  text-align: center;
+  font-size: 2.3rem;
+  text-shadow: 0px 0px 6px #000;
+  font-weight: bold;
+  letter-spacing: 3px;
+  background: rgba(#f0ced4, 0.5);
+}
+
+@keyframes falling {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

@@ -11,11 +11,27 @@
     <div id="container">
       <div class="img-wrap"></div>
       <h1>로또 황금번호 제조기</h1>
-      <button id="generate">CLICK</button>
+      <div id="buttons">
+        <button id="generate">제조하기</button>
+        <button id="storageGenerate">
+          저장한<br />
+          <span>황금번호</span>
+        </button>
+      </div>
       <div id="result"></div>
       <div id="textresult">🎉이번주의 주인공은 바로 당신!🎉</div>
-      <div id="storage-wrap">
-        <div id="storage"></div>
+
+      <div id="storage">
+        <button id="storageButton">저장하기</button>
+      </div>
+    </div>
+    <div id="storage-modal">
+      <div id="storage-modal-content-wrap">
+        <h1>저장한 <span>황금번호</span></h1>
+        <div id="storage-modal-content"></div>
+        <div id="close-btn">
+          <i class="close"></i>
+        </div>
       </div>
     </div>
   </body>

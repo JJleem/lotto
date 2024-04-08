@@ -2,9 +2,13 @@ const button = document.querySelector("button");
 const result = document.querySelector("#result");
 const textResult = document.querySelector("#textresult");
 const generate = document.querySelector("#generate");
-
-generate.addEventListener("click", function () {
+const storageBtn = document.querySelector("#storageButton");
+const closeBtn = document.querySelector("#close-btn");
+const modal = document.querySelector("#storage-modal");
+const storageGenerate = document.querySelector("#storageGenerate");
+generate.addEventListener("click", () => {
   textResult.style.opacity = "0";
+  storage.style.opacity = "0";
   result.innerHTML = "";
   const luckyNumber = {
     digitCount: 6,
@@ -18,10 +22,11 @@ generate.addEventListener("click", function () {
       myNumber.add(Math.floor(Math.random() * maxNumber) + 1);
     }
     // 작은 순서대로 나열
-    const sortedNumbers = [...myNumber].sort((a, b) => a - b);
+    let sortedNumbers = [...myNumber].sort((a, b) => a - b);
     // 추가 번호 생성
     const bonusNumber = Math.floor(Math.random() * maxNumber) + 1;
-
+    const numbers = sortedNumbers.join(" ");
+    localStorage.setItem("numbers", numbers);
     // 번호값에따른 배경색 변경
     sortedNumbers.forEach((number) => {
       const span = document.createElement("span");
@@ -39,7 +44,6 @@ generate.addEventListener("click", function () {
       } else if (number < 46) {
         span.style.backgroundColor = "#5ab545";
       }
-
       result.appendChild(span);
     });
 
@@ -57,11 +61,54 @@ generate.addEventListener("click", function () {
     bonusSpan.style.backgroundColor = "#fbc400";
 
     result.appendChild(bonusSpan);
-
+    const bonus = bonusNumber.toString();
+    localStorage.setItem("bonus", bonus);
     setTimeout(() => {
       textResult.style.opacity = "1";
+      storage.style.opacity = "1";
     }, 2000);
   };
 
   lottoPlay();
+  return;
+});
+
+const modalContent = document.querySelector("#storage-modal-content");
+
+closeBtn.addEventListener("click", () => {
+  modal.style.display = "none";
+});
+storageGenerate.addEventListener("click", () => {
+  modal.style.display = "block";
+});
+
+// 번호와 추가 번호를 문자열로 변환하여 저장
+
+storageBtn.addEventListener("click", () => {
+  const storedNumbers = localStorage.getItem("numbers");
+  const storedBonus = localStorage.getItem("bonus");
+  // const storged = document.createElement("span");
+
+  storedNumbers.forEach((number) => {
+    const span = document.createElement("span");
+    span.textContent = number + " ";
+    if (number < 11) {
+      span.style.backgroundColor = "#e4a716";
+    } else if (number < 21) {
+      span.style.backgroundColor = "#1993da";
+    } else if (number < 31) {
+      span.style.backgroundColor = "#e96353";
+    } else if (number < 41) {
+      span.style.backgroundColor = "#8f8f8f";
+    } else if (number < 46) {
+      span.style.backgroundColor = "#5ab545";
+    }
+    modalContent.appendChild(span);
+  });
+  console.log(storedNumbers);
+  // storged.textContent = storedNumbers + "+" + storedBonus;
+  // modalContent.appendChild(storged);
+  modal.style.display = "block";
+  console.log(storedNumbers);
+  console.log(storedBonus);
 });

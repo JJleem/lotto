@@ -221,10 +221,30 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid #f00;
   height: 100vh;
   font-size: 2rem;
   gap: 10px;
+  font-weight: bold;
+}
+#storage-modal-content div {
+  display: flex;
+  border: 1px solid #f00;
+  gap: 50px;
+}
+#storage-modal-content span {
+  background: aliceblue;
+  border-radius: 10px;
+}
+#storage-modal-content i {
+  font-size: 1rem;
+  cursor: pointer;
+  font-style: normal;
+  color: crimson;
+  width: fit-content;
+  background: aliceblue;
+  border-radius: 10px;
+  padding: 5px 10px;
+  line-height: 2rem;
 }
 @keyframes falling {
   0% {

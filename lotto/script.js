@@ -26,7 +26,7 @@ generate.addEventListener("click", () => {
     // 추가 번호 생성
     const bonusNumber = Math.floor(Math.random() * maxNumber) + 1;
     const numbers = sortedNumbers.join(" ");
-    localStorage.setItem("numbers", numbers);
+
     // 번호값에따른 배경색 변경
     sortedNumbers.forEach((number) => {
       const span = document.createElement("span");
@@ -45,6 +45,7 @@ generate.addEventListener("click", () => {
         span.style.backgroundColor = "#5ab545";
       }
       result.appendChild(span);
+      localStorage.setItem("numbers", [span]);
     });
 
     // 추가 번호 배경색 변경
@@ -87,28 +88,18 @@ storageGenerate.addEventListener("click", () => {
 storageBtn.addEventListener("click", () => {
   const storedNumbers = localStorage.getItem("numbers");
   const storedBonus = localStorage.getItem("bonus");
-  // const storged = document.createElement("span");
+  const storgedWrap = document.createElement("div");
+  const storged = document.createElement("span");
+  const delStorged = document.createElement("i");
+  console.log(storedNumbers);
+  // storged.forEach((e) => {
+  //   console.log(e);
+  // });
 
-  storedNumbers.forEach((number) => {
-    const span = document.createElement("span");
-    span.textContent = number + " ";
-    if (number < 11) {
-      span.style.backgroundColor = "#e4a716";
-    } else if (number < 21) {
-      span.style.backgroundColor = "#1993da";
-    } else if (number < 31) {
-      span.style.backgroundColor = "#e96353";
-    } else if (number < 41) {
-      span.style.backgroundColor = "#8f8f8f";
-    } else if (number < 46) {
-      span.style.backgroundColor = "#5ab545";
-    }
-    modalContent.appendChild(span);
-  });
-  console.log(storedNumbers);
-  // storged.textContent = storedNumbers + "+" + storedBonus;
-  // modalContent.appendChild(storged);
+  storged.textContent = storedNumbers + "+" + storedBonus;
+  delStorged.textContent = "삭제";
+  storgedWrap.appendChild(storged);
+  storgedWrap.appendChild(delStorged);
+  modalContent.appendChild(storgedWrap);
   modal.style.display = "block";
-  console.log(storedNumbers);
-  console.log(storedBonus);
 });

@@ -97,91 +97,58 @@ storageGenerate.addEventListener("click", () => {
   modal.style.display = "block";
 });
 
-// document.addEventListener("DOMContentLoaded", () => {
-//   const storedData = JSON.parse(localStorage.getItem("storedData"));
-//   if (storedData) {
-//     // 저장된 데이터를 사용하여 모달창 내용 생성
-//     // 예시: 모달창에 저장된 숫자와 보너스 번호를 표시
-//     const storedNumbers = storedData.numbers;
-//     const storedBonus = storedData.bonus;
-
-//   }
-// });
-
 document.addEventListener("DOMContentLoaded", () => {
-  const storgedWrap = document.createElement("div");
-  const delStorged = document.createElement("i");
-  const storedData = JSON.parse(localStorage.getItem("storedData"));
-  console.log(storedData);
-  if (storedData) {
-    const storedNumbers = storedData.numbers;
-    const storedBonus = storedData.bonus;
-    storedNumbers.forEach((number) => {
-      const span = document.createElement("span");
-      span.textContent = number;
-      // 숫자 범위에 따른 배경색 적용
-      if (number < 11) {
-        span.style.backgroundColor = "#e4a716";
-      } else if (number < 21) {
-        span.style.backgroundColor = "#1993da";
-      } else if (number < 31) {
-        span.style.backgroundColor = "#e96353";
-      } else if (number < 41) {
-        span.style.backgroundColor = "#8f8f8f";
-      } else if (number < 46) {
-        span.style.backgroundColor = "#5ab545";
-      }
-      storgedWrap.appendChild(span); // 또는 특정 요소에 추가
+  let storedData = JSON.parse(localStorage.getItem("storedData")) || [];
+
+  const displayStoredData = () => {
+    // modalContent가 저장된 데이터를 표시하는 컨테이너라고 가정
+    modalContent.innerHTML = "";
+    storedData.forEach((data) => {
+      const storgedWrap = document.createElement("div");
+      const delStorged = document.createElement("i");
+
+      data.numbers.forEach((number) => {
+        const span = document.createElement("span");
+        span.textContent = number;
+        // 숫자 에 따른 배경색 적용
+        if (number < 11) span.style.backgroundColor = "#e4a716";
+        else if (number < 21) span.style.backgroundColor = "#1993da";
+        else if (number < 31) span.style.backgroundColor = "#e96353";
+        else if (number < 41) span.style.backgroundColor = "#8f8f8f";
+        else if (number < 46) span.style.backgroundColor = "#5ab545";
+        storgedWrap.appendChild(span);
+      });
+
+      const bonusSpan = document.createElement("span");
+      bonusSpan.textContent = "+" + data.bonus;
+      bonusSpan.style.backgroundColor = "#fbc400";
+      storgedWrap.appendChild(bonusSpan);
+
+      delStorged.textContent = "x";
+      storgedWrap.appendChild(delStorged);
+      modalContent.appendChild(storgedWrap);
+
+      delStorged.addEventListener("click", () => {
+        storgedWrap.parentNode.removeChild(storgedWrap);
+        // 이 데이터를 storedData에서 제거하고 localStorage 업데이트
+        storedData = storedData.filter((item) => item !== data);
+        localStorage.setItem("storedData", JSON.stringify(storedData));
+      });
     });
-    const bonusSpan = document.createElement("span");
-    bonusSpan.textContent = "+" + storedBonus;
-    bonusSpan.style.backgroundColor = "#fbc400";
-    storgedWrap.appendChild(bonusSpan);
-    delStorged.textContent = "x";
-    storgedWrap.appendChild(delStorged);
-    modalContent.appendChild(storgedWrap);
-  }
-});
-
-// 저장 및 삭제
-storageBtn.addEventListener("click", () => {
-  const storedNumbers = localStorage.getItem("numbers").split(", ");
-  const storedBonus = localStorage.getItem("bonus");
-  const storgedWrap = document.createElement("div");
-  const delStorged = document.createElement("i");
-
-  const dataToStore = {
-    numbers: localStorage.getItem("numbers").split(", "),
-    bonus: localStorage.getItem("bonus"),
   };
-  localStorage.setItem("storedData", JSON.stringify(dataToStore));
 
-  storedNumbers.forEach((number) => {
-    const span = document.createElement("span");
-    span.textContent = number;
-    // 숫자 범위에 따른 배경색 적용
-    if (number < 11) {
-      span.style.backgroundColor = "#e4a716";
-    } else if (number < 21) {
-      span.style.backgroundColor = "#1993da";
-    } else if (number < 31) {
-      span.style.backgroundColor = "#e96353";
-    } else if (number < 41) {
-      span.style.backgroundColor = "#8f8f8f";
-    } else if (number < 46) {
-      span.style.backgroundColor = "#5ab545";
-    }
-    storgedWrap.appendChild(span); // 또는 특정 요소에 추가
-  });
-  const bonusSpan = document.createElement("span");
-  bonusSpan.textContent = "+" + storedBonus;
-  bonusSpan.style.backgroundColor = "#fbc400";
-  storgedWrap.appendChild(bonusSpan);
-  delStorged.textContent = "x";
-  storgedWrap.appendChild(delStorged);
-  modalContent.appendChild(storgedWrap);
-  modal.style.display = "block";
-  delStorged.addEventListener("click", () => {
-    storgedWrap.parentNode.removeChild(storgedWrap);
+  // 초기에 저장된 데이터 표시
+  displayStoredData();
+
+  // 저장 버튼 클릭 이벤트 리스너
+  storageBtn.addEventListener("click", () => {
+    const numbers = localStorage.getItem("numbers").split(", ").map(Number);
+    const bonus = localStorage.getItem("bonus");
+    const dataToStore = { numbers, bonus };
+    // 새 데이터를 storedData에 추가하고 localStorage에 저장
+    storedData.push(dataToStore);
+    localStorage.setItem("storedData", JSON.stringify(storedData));
+    modal.style.display = "block";
+    displayStoredData();
   });
 });
